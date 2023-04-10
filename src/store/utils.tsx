@@ -1,12 +1,17 @@
 import { useContext, createContext, ReactNode, useReducer, Dispatch } from "react";
 
+interface CreateStoreOption<State, Actions> {
+    state: State,
+    mutations: (state: State, actions: Actions) => State
+}
 
-export function createState<Type, Actions = undefined>(state: Type, actions: (state: Type, actions: Actions) => Type) {
+
+export function createState<State, Actions>(options: CreateStoreOption<State, Actions>) {
     function useSource(): [
-        Type,
+        State,
         Dispatch<Actions>
     ] {
-        const reducer = useReducer(actions, state);
+        const reducer = useReducer(options.mutations, options.state);
     
         return reducer
     }

@@ -14,21 +14,26 @@ type CounterAction =
 
 
 //DEFINE YOUR GLOBAL STATE.
-//First Argument is the default value of your state above
-//Second Argument is a functions that accepts the current state and the action received. returns a new state 
+//`state` holds your current global state
+//`mutations` is a function that receive the current state and the received actions. Returns new state
 const {provider: CounterProvider, context: useCounter} = createState<Counter, CounterAction>({
-    counter: 0
-}, (state, actions) => {
-    switch (actions.type) {
-        case "add":
-            return {counter: state.counter + actions.payload}
-        case "minus":
-            return {counter: state.counter - actions.payload}
+    state: {
+        counter: 0
+    },
+    mutations: (state, actions) => {
+        switch (actions.type) {
+            case "add":
+                return {counter: state.counter + actions.payload}
+            case "minus":
+                return {counter: state.counter - actions.payload}
+        }
     }
 })
 
 export {
+    //Use this inside `store/index.tsx`
     CounterProvider, 
+    //Use this inside any of your components
     useCounter
 }
 
