@@ -37,3 +37,20 @@ export {
     useCounter
 }
 
+/*
+ASYNC PATTERN:-
+
+const AppContextProvider = ({ children }) => {
+  const [counter, dispatch] = useCounter(reducer, initState);
+  const asyncDispatch = () => { // adjust args to your needs
+    dispatch({ type: "loading" });
+    fetchData().then(data => {
+      dispatch({ type: "finished", payload: data });
+    });
+  };
+  
+};
+
+reference:  https://stackoverflow.com/questions/53146795/react-usereducer-async-data-fetch
+
+*/
